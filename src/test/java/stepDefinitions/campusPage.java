@@ -59,26 +59,27 @@ public class campusPage {
         String state= datamap.get(index).get("State");
         
         cp.firstname(firstname);
-        Thread.sleep(2000);
+       
         cp.lastname(lastname);
-        Thread.sleep(2000);
+       
         cp.email(email);
-        Thread.sleep(2000);
+       
         cp.phone(phone);
-        Thread.sleep(2000);
+        
         cp.institution(institution);
-        Thread.sleep(2000);
+       
         cp.name(name);
-        Thread.sleep(2000);
+       
         cp.job(job);
-        Thread.sleep(2000);
+        
         cp.department(deprtment);
-        Thread.sleep(2000);
+       
         cp.needs(needs);
-        Thread.sleep(2000);
+       
         cp.country(country);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         cp.state(state);
+        Thread.sleep(2000);
         cp.submit();
         
         
