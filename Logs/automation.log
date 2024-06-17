@@ -1,0 +1,104 @@
+15:13:58.064 [main] INFO  - Web Page opens
+15:13:58.154 [main] INFO  - Go to for individuals and search for course
+15:13:58.158 [main] INFO  - Enter the course to search
+15:14:36.927 [main] INFO  - The courses are displayed 
+15:14:36.947 [main] INFO  - Apply the filter 
+15:14:40.513 [main] INFO  - The courses are displayed after applying filter
+15:14:40.543 [main] INFO  - User will select first two courses information
+15:16:03.840 [main] INFO  - Display the course title , ratings and learning hours of the courses
+15:16:03.957 [main] INFO  - Display the language count and languages
+15:16:06.930 [main] INFO  - Display the levels count and levels
+15:16:07.729 [main] INFO  - Click the For Enterprise
+15:16:44.116 [main] INFO  - Navigating to For Enterprise page
+15:16:44.117 [main] INFO  - Click on the solutions
+15:16:47.703 [main] INFO  - The solutions overview is displayed
+15:16:47.718 [main] INFO  - Coursera for campus is clicked
+15:17:28.746 [main] INFO  - The details for campus solutions are presented
+15:17:28.768 [main] INFO  - The user is on the campus inquiry page 
+15:17:28.769 [main] INFO  - The user enters their personal and professional details into the form
+15:17:54.830 [main] INFO  - Form is filled
+15:17:54.831 [main] INFO  - Message will be displayed
+15:17:55.023 [main] INFO  - Error message displayed
+15:17:55.023 [main] INFO  - Form is not submitted
+15:17:58.197 [main] INFO  - The user is on the campus inquiry page 
+15:17:58.199 [main] INFO  - The user enters their personal and professional details into the form
+15:18:23.832 [main] INFO  - Form is filled
+15:18:23.833 [main] INFO  - Message will be displayed
+15:18:23.985 [main] INFO  - Error message displayed
+15:18:23.985 [main] INFO  - Form is not submitted
+15:18:27.164 [main] INFO  - The user is on the campus inquiry page 
+15:18:27.165 [main] INFO  - The user enters their personal and professional details into the form
+15:18:52.452 [main] INFO  - Form is filled
+15:18:52.453 [main] INFO  - Message will be displayed
+15:18:52.592 [main] INFO  - Error message displayed
+15:18:52.592 [main] INFO  - Form is not submitted
+15:18:55.760 [main] INFO  - The user is on the campus inquiry page 
+15:18:55.761 [main] INFO  - The user enters their personal and professional details into the form
+15:19:21.213 [main] INFO  - Form is filled
+15:19:21.214 [main] INFO  - Message will be displayed
+15:19:21.363 [main] INFO  - Error message displayed
+15:19:21.363 [main] INFO  - Form is not submitted
+15:19:24.521 [main] INFO  - The user is on the campus inquiry page 
+15:19:24.523 [main] INFO  - The user enters their personal and professional details into the form
+15:19:50.187 [main] INFO  - Form is filled
+15:19:50.188 [main] INFO  - Message will be displayed
+15:20:40.411 [main] ERROR - Form is submitted successfully
+15:20:40.411 [main] INFO  - Success message displayed
+15:22:40.364 [main] INFO  - Web Page opens
+15:22:40.546 [main] INFO  - Go to for individuals and search for course
+15:22:40.549 [main] INFO  - Enter the course to search
+15:23:18.986 [main] INFO  - The courses are displayed 
+15:23:19.011 [main] INFO  - Apply the filter 
+15:23:22.658 [main] INFO  - The courses are displayed after applying filter
+15:23:22.669 [main] INFO  - User will select first two courses information
+15:25:24.585 [main] INFO  - Display the course title , ratings and learning hours of the courses
+15:25:24.720 [main] INFO  - Display the language count and languages
+15:25:27.259 [main] INFO  - Display the levels count and levels
+15:25:27.963 [main] INFO  - Click the For Enterprise
+15:26:04.242 [main] INFO  - Navigating to For Enterprise page
+15:26:04.243 [main] INFO  - Click on the solutions
+15:26:07.896 [main] INFO  - The solutions overview is displayed
+15:26:07.910 [main] INFO  - Coursera for campus is clicked
+15:26:49.329 [main] INFO  - The details for campus solutions are presented
+15:26:49.350 [main] INFO  - The user is on the campus inquiry page 
+15:26:49.352 [main] INFO  - The user enters their personal and professional details into the form
+15:27:15.192 [main] INFO  - Form is filled
+15:27:15.193 [main] INFO  - Message will be displayed
+15:27:15.354 [main] INFO  - Error message displayed
+15:27:15.354 [main] INFO  - Form is not submitted
+15:27:18.552 [main] INFO  - The user is on the campus inquiry page 
+15:27:18.553 [main] INFO  - The user enters their personal and professional details into the form
+15:27:43.877 [main] INFO  - Form is filled
+15:27:43.877 [main] INFO  - Message will be displayed
+15:27:44.028 [main] INFO  - Error message displayed
+15:27:44.028 [main] INFO  - Form is not submitted
+15:27:47.252 [main] INFO  - The user is on the campus inquiry page 
+15:27:47.254 [main] INFO  - The user enters their personal and professional details into the form
+15:28:12.545 [main] INFO  - Form is filled
+15:28:12.545 [main] INFO  - Message will be displayed
+15:28:12.687 [main] INFO  - Error message displayed
+15:28:12.687 [main] INFO  - Form is not submitted
+15:28:15.870 [main] INFO  - The user is on the campus inquiry page 
+15:28:15.872 [main] INFO  - The user enters their personal and professional details into the form
+15:29:21.603 [main] INFO  - The user is on the campus inquiry page 
+15:29:21.605 [main] INFO  - The user enters their personal and professional details into the form
+16:00:12.570 [main] INFO  - Web Page opens
+16:00:12.632 [main] INFO  - Go to for individuals and search for course
+16:00:12.636 [main] INFO  - Enter the course to search
+16:01:02.789 [main] INFO  - Apply the filter 
+16:01:52.853 [main] INFO  - User will select first two courses information
+16:02:44.301 [main] INFO  - Display the language count and languages
+16:04:24.414 [main] INFO  - Display the levels count and levels
+16:06:04.512 [main] INFO  - Navigating to For Enterprise page
+16:06:04.513 [main] INFO  - Click on the solutions
+16:07:45.129 [main] INFO  - Coursera for campus is clicked
+16:08:38.306 [main] INFO  - The user is on the campus inquiry page 
+16:08:38.308 [main] INFO  - The user enters their personal and professional details into the form
+16:09:28.621 [main] INFO  - The user is on the campus inquiry page 
+16:09:28.623 [main] INFO  - The user enters their personal and professional details into the form
+16:10:18.719 [main] INFO  - The user is on the campus inquiry page 
+16:10:18.720 [main] INFO  - The user enters their personal and professional details into the form
+16:11:08.838 [main] INFO  - The user is on the campus inquiry page 
+16:11:08.840 [main] INFO  - The user enters their personal and professional details into the form
+16:11:58.971 [main] INFO  - The user is on the campus inquiry page 
+16:11:58.973 [main] INFO  - The user enters their personal and professional details into the form
