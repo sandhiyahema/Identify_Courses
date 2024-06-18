@@ -11,8 +11,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,9 +29,10 @@ public class homePage extends basePage{
 	  JavascriptExecutor js;
 	  public Logger logger;
 	  public Properties p;
-	  WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(50));
+	  WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(120));
 	  List<String> Course_list = new ArrayList<>();
-	  basePage bp = new basePage(driver);
+	  basePage base = new basePage(driver);
+	  Actions action = new Actions(driver);
 	  String file = System.getProperty("user.dir") + "\\OutputData\\Exceloutputfile.xlsx";
 
 	   //constructor of the superclass
@@ -38,20 +43,28 @@ public class homePage extends basePage{
 		
 		     js=(JavascriptExecutor)driver;
 		 
-		     logger = LogManager.getLogger(this.getClass()); 
+		     logger = LogManager.getLogger(this.getClass());  
 		   		     		
 	  }	
 	  
   
 	  //WebElement Locators
 	  
-	  @FindBy(className = "react-autosuggest__input") WebElement Search;
+	  @FindBy(xpath = "(//input[@type='text'])[1]")WebElement Search;
 	  
-	  @FindBy(xpath = "//button[@class='nostyle search-button']//div[@class='magnifier-wrapper']") WebElement Toclick;
+	  @FindBy(xpath = "(//button[@class='mobile-search-icon'])[1]") WebElement Search_Icon_Mobile;
+	  
+	  @FindBy(xpath = "(//div[@data-e2e='AutoComplete'])[2]//input[1]") WebElement Search_Mobile;
+	  
+	  @FindBy(xpath = "//button[@aria-label='Submit Search']") WebElement Toclick;
 	 	  
 	  @FindBy(xpath = "(//div[@data-testid='search-filter-group-Language']//div[@class='cds-checkboxAndRadio-labelText'])[1]") WebElement English;
 	  
 	  @FindBy(xpath = "(//div[@data-testid='search-filter-group-Level']//div[@class='cds-checkboxAndRadio-labelText'])[1]") WebElement Beginner;
+	  
+	  @FindBy(xpath = "//span[contains(text(),'Sort by')]")WebElement Sortby;
+	  
+	  @FindBy(xpath = "//div[contains(text(),'Newest')]") WebElement Newest;
 	  
 	  @FindBy(xpath = "//div[@class='cds-CommonCard-metadata']") List<WebElement> Courses;
 	  
@@ -73,46 +86,69 @@ public class homePage extends basePage{
 	  
 	  @FindBy(linkText = "For Enterprise") WebElement Enterprise;
 	  
-	  public void toSearch() throws InterruptedException, IOException {
+   // Enter the course to be search	  
+	  
+	  public void toSearch() throws IOException {
 		  
 		  FileReader file=new FileReader(".\\src\\test\\resources\\config.Properties");
 			 p=new Properties();
 			 p.load(file);
 		  
-		  Search.sendKeys(p.getProperty("Tosearch"));
+		  try {
+			  
+			  Search.sendKeys(p.getProperty("Tosearch"));
+			  
+		  }catch(Exception e){
+			  
+			  Search_Icon_Mobile.click();
+			  
+			  action.sendKeys(Keys.ENTER).perform();
+			  
+			  Search_Mobile.sendKeys(p.getProperty("Tosearch"));
+		  }
 		  
-		  bp.takeScreenshot("Tosearch");
+		  base.takeScreenshot("To Search");
 		  
 		  System.out.println("Entering search value");
-		  	 
+	  	
 	  }
 	  
+   // Click the search button	  
+	  
 	  public void toClick() throws InterruptedException, IOException {
+		  	  
+		   Thread.sleep(3000);
 		  
-          Toclick.click();
+		   action.sendKeys(Keys.ENTER).perform();
 		  
-          bp.takeScreenshot("Before Applying Filter");
-		  Thread.sleep(3000);
-		  
-		  
+		  base.takeScreenshot("Before applying filter");
 		  
 	  }
+	  
+   // Apply the filter for language as English
 	  
 	  public void english()  {
 		 
 		  English.click();
 		  
       }
-	  
+	 
+   //Apply the filter for level as beginner	  
 	  
 	  public void beginner() throws InterruptedException {
 		  
           Beginner.click();
 		  
 		  Thread.sleep(3000);
+		  
+		  Sortby.click();
+		  
+		  Newest.click();
  		  
 		  
 	  }
+	  
+   // Select the course and display its count	  
 	  
 	  public void selectCourse() throws IOException {
 		  
@@ -120,14 +156,18 @@ public class homePage extends basePage{
 	    	  
 		       String courseLevel = Courses.get(i).getText();
 		       
-		       Course_list.add(courseLevel); 	       
+		       Course_list.add(courseLevel); 
+		       
+		       System.out.println("the courses : " + Course_Click.get(i).getText());
 		  }
-	      
-	      bp.takeScreenshot("After Applying Filter");
 	      
 	      System.out.println("No.of courses available: " +Course_list.size());
 	      
+	      base.takeScreenshot("After applying filter");
+	      
 	  }
+	  
+   // Display the details of course title , ratings , Hours of learning for the first 2 courses 	  
 	  
 	  public void displayDetails() throws InterruptedException {
 		  
@@ -156,6 +196,8 @@ public class homePage extends basePage{
 		          js.executeScript("arguments[0].style.border = '3px solid red' ",Course_Title);
 		      
 		          System.out.println("Ratings : " + Ratings.getText());
+		         
+//		          js.executeScript("arguments[0].scrollIntoView(true);",Course_Title);
 		          
 		          ExcelUtils.setCellData(file, "Course details", i+1, 2,Ratings.getText());
 		          
@@ -168,8 +210,8 @@ public class homePage extends basePage{
 		          js.executeScript("arguments[0].style.border = '3px solid red' ",Hours);
 		          
 		          System.out.println();
-		         
-		          bp.takeScreenshot("Course Details");
+		          
+		          base.takeScreenshot("course details");
 		      
 		          Thread.sleep(3000);
 		      
@@ -191,6 +233,8 @@ public class homePage extends basePage{
 	        
 	  }
 	  
+   //Click the see all in language for taking its count	  
+	  
 	  public void seeAll() {
 		   
 		  seeall.click();
@@ -200,13 +244,14 @@ public class homePage extends basePage{
 		  
 	  }
 	  
+	//Take the count of the languages and display the languages  
 	  
-	  public void languageCount() throws IOException {
+	  public void languageCount() throws InterruptedException, IOException {
 		   
 		 
 		  System.out.println("Total number of languages : " + Languages.size());
 		  
-		  WebElement scroll =driver.findElement(By.xpath("//label[contains(text(),'Language')]"));
+		  WebElement scroll = driver.findElement(By.xpath("//label[contains(text(),'Language')]"));
 		  
 		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
 		  
@@ -226,21 +271,25 @@ public class homePage extends basePage{
 			  
 		  }
 		  
-		  bp.takeScreenshot("Languages");
-		  
 		  System.out.println();
 		  
+		  Thread.sleep(2000);
+		  
+		  base.takeScreenshot("Languages");
+		  
 	  }
+	  
+    //Take the count of the levels and display the levels  
 	  
 	  public void levelCount() throws IOException {
 		  
 		  System.out.println("-------------------------------------------------------");
 		  
-		  System.out.println("Total number of levels : " + Levels.size());
-		  
-		  WebElement scroll =driver.findElement(By.xpath("//label[contains(text(),'Level')]"));
+		  WebElement scroll = driver.findElement(By.xpath("//label[contains(text(),'Level')]"));
 		  
 		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
+		  
+		  System.out.println("Total number of levels : " + Levels.size());
 		  
 		  for(int i = 0 ; i < Levels.size();i++) {
 			  
@@ -257,16 +306,19 @@ public class homePage extends basePage{
 		      }	
 			  
 		  }
-		  bp.takeScreenshot("Levels");
 		  
 		  System.out.println();
+		  
+		  base.takeScreenshot("Levels");
 		  
 		  System.out.println("-------------------------------------------------------");
 	  }
 	  
+   //Click the for enterprise
+	  
 	  public void clickEnterprise() throws InterruptedException, IOException {
 		  
-		  WebElement scroll = driver.findElement(By.xpath("(//p[contains(text(),'Coursera')])[6]"));
+		  WebElement scroll = driver.findElement(By.xpath("(//p[contains(text(),'Community')])"));
 		  
 		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
 		  
@@ -274,11 +326,9 @@ public class homePage extends basePage{
 		  
 		  js.executeScript("arguments[0].style.border = '3px solid red' ",Enterprise);
 		  
-		  bp.takeScreenshot("For enterprise");
+		  base.takeScreenshot("For enterprise");
 		  
-		  js.executeScript("arguments[0].click();", Enterprise);
-		  
-		  
+		  js.executeScript("arguments[0].click();", Enterprise);  
 		  
 	  }
 

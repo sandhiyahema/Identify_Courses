@@ -23,7 +23,9 @@ public class baseClass {
 	     
 	public static WebDriver initilizeBrowser() throws IOException, InterruptedException
 	{
+		//load properties from configuration file
 		p = getProperties();
+		//Retrieve browser type from properties file
         String browser = p.getProperty("browser").toLowerCase();
 		
 				switch(browser.toLowerCase()) 

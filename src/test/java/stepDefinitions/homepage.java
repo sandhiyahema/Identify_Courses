@@ -112,7 +112,7 @@ public void the_user_clicks_on_the_see_all_languages_button() {
 }
 
 @Then("the total number of languages and languages name should be displayed")
-public void the_total_number_of_languages_and_languages_name_should_be_displayed() throws IOException {
+public void the_total_number_of_languages_and_languages_name_should_be_displayed() throws IOException, InterruptedException {
 	
 	baseClass.getLogger().info("Display the language count and languages");
    
