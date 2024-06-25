@@ -29,7 +29,7 @@ public class homePage extends basePage{
 	  JavascriptExecutor js;
 	  public Logger logger;
 	  public Properties p;
-	  WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(120));
+	  WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(20));
 	  List<String> Course_list = new ArrayList<>();
 	  basePage base = new basePage(driver);
 	  Actions action = new Actions(driver);
@@ -40,14 +40,10 @@ public class homePage extends basePage{
 	  public homePage(WebDriver driver) {
 		
 		     super(driver);
-		
 		     js=(JavascriptExecutor)driver;
-		 
 		     logger = LogManager.getLogger(this.getClass());  
 		   		     		
 	  }	
-	  
-  
 	  //WebElement Locators
 	  
 	  @FindBy(xpath = "(//input[@type='text'])[1]")WebElement Search;
@@ -62,13 +58,13 @@ public class homePage extends basePage{
 	  
 	  @FindBy(xpath = "(//div[@data-testid='search-filter-group-Level']//div[@class='cds-checkboxAndRadio-labelText'])[1]") WebElement Beginner;
 	  
-	  @FindBy(xpath = "//span[contains(text(),'Sort by')]")WebElement Sortby;
+	  //@FindBy(xpath = "//span[contains(text(),'Sort by')]")WebElement Sortby;
 	  
-	  @FindBy(xpath = "//div[contains(text(),'Newest')]") WebElement Newest;
+	  //@FindBy(xpath = "//div[contains(text(),'Newest')]") WebElement Newest;
 	  
 	  @FindBy(xpath = "//div[@class='cds-CommonCard-metadata']") List<WebElement> Courses;
 	  
-	  @FindBy(xpath = "cds-CommonCard-ratings") List<WebElement> Ratings_count;
+	  //@FindBy(xpath = "cds-CommonCard-ratings") List<WebElement> Ratings_count;
 	  
 	  @FindBy(xpath = "//a[@data-click-key='search.search.click.search_card']") List<WebElement> Course_Click;
 	  
@@ -101,14 +97,11 @@ public class homePage extends basePage{
 		  }catch(Exception e){
 			  
 			  Search_Icon_Mobile.click();
-			  
 			  action.sendKeys(Keys.ENTER).perform();
-			  
 			  Search_Mobile.sendKeys(p.getProperty("Tosearch"));
 		  }
 		  
 		  base.takeScreenshot("To Search");
-		  
 		  System.out.println("Entering search value");
 	  	
 	  }
@@ -118,10 +111,8 @@ public class homePage extends basePage{
 	  public void toClick() throws InterruptedException, IOException {
 		  	  
 		   Thread.sleep(3000);
-		  
 		   action.sendKeys(Keys.ENTER).perform();
-		  
-		  base.takeScreenshot("Before applying filter");
+		   base.takeScreenshot("Before applying filter");
 		  
 	  }
 	  
@@ -138,14 +129,9 @@ public class homePage extends basePage{
 	  public void beginner() throws InterruptedException {
 		  
           Beginner.click();
-		  
 		  Thread.sleep(3000);
-		  
-		  Sortby.click();
-		  
-		  Newest.click();
- 		  
-		  
+		  // Sortby.click();
+		  //Newest.click();  
 	  }
 	  
    // Select the course and display its count	  
@@ -155,16 +141,12 @@ public class homePage extends basePage{
 	      for (int i = 0; i < Courses.size(); i++) {
 	    	  
 		       String courseLevel = Courses.get(i).getText();
-		       
 		       Course_list.add(courseLevel); 
-		       
 		       System.out.println("the courses : " + Course_Click.get(i).getText());
 		  }
 	      
 	      System.out.println("No.of courses available: " +Course_list.size());
-	      
-	      base.takeScreenshot("After applying filter");
-	      
+	      base.takeScreenshot("After applying filter");   
 	  }
 	  
    // Display the details of course title , ratings , Hours of learning for the first 2 courses 	  
@@ -172,49 +154,35 @@ public class homePage extends basePage{
 	  public void displayDetails() throws InterruptedException {
 		  
 		  System.out.println("\n The courses are : ");
-		  
 		  for(int i = 0 ;i < 2; i++) {
 			  
 			  js.executeScript("arguments[0].style.border = '3px solid red' ",Course_Click.get(i));
-			  
 	          try {
 	        	  
-	          ExcelUtils.setCellData(file, "Course details", i+1, 0,Course_Click.get(i).getText());
-	        			  		  
+	          ExcelUtils.setCellData(file, "Course details", i+1, 0,Course_Click.get(i).getText());		  		  
 			  Course_Click.get(i).click();  
-		
 			  List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
-  	          
-  	          for(int j = windowHandles.size()-1;j>0;j--) {
-  	        	  
-  	        	 driver.switchTo().window(windowHandles.get(j));
-  	        	 
-		          System.out.println("The course title : " + Course_Title.getText());
+  	          for(int j = windowHandles.size()-1;j>0;j--)
+  	          {
+  	        	  driver.switchTo().window(windowHandles.get(j));
+  	        	  System.out.println("The course title : " + Course_Title.getText());
 		          
 		          ExcelUtils.setCellData(file, "Course details", i+1, 1,Course_Title.getText());
-		          
 		          js.executeScript("arguments[0].style.border = '3px solid red' ",Course_Title);
-		      
 		          System.out.println("Ratings : " + Ratings.getText());
 		         
 //		          js.executeScript("arguments[0].scrollIntoView(true);",Course_Title);
 		          
 		          ExcelUtils.setCellData(file, "Course details", i+1, 2,Ratings.getText());
-		          
 		          js.executeScript("arguments[0].style.border = '3px solid red' ",Ratings);
 		      
 		          System.out.println("Hours of Learning : " + Hours.getText());
-		          
 		      	  ExcelUtils.setCellData(file, "Course details", i+1, 3,Hours.getText());
-		          
 		          js.executeScript("arguments[0].style.border = '3px solid red' ",Hours);
-		          
-		          System.out.println();
-		          
+		          System.out.println();       
 		          base.takeScreenshot("course details");
 		      
 		          Thread.sleep(3000);
-		      
 		          driver.close();
 		      
                   driver.switchTo().window(windowHandles.get(j-1));
@@ -235,28 +203,20 @@ public class homePage extends basePage{
 	  
    //Click the see all in language for taking its count	  
 	  
-	  public void seeAll() {
-		   
+	  public void seeAll() 
+	  {
 		  seeall.click();
-		  
 		  System.out.println("-------------------------------------------------------");
-		  
-		  
 	  }
 	  
 	//Take the count of the languages and display the languages  
 	  
-	  public void languageCount() throws InterruptedException, IOException {
-		   
-		 
+	  public void languageCount() throws InterruptedException, IOException 
+	  { 
 		  System.out.println("Total number of languages : " + Languages.size());
-		  
-		  WebElement scroll = driver.findElement(By.xpath("//label[contains(text(),'Language')]"));
-		  
+		  WebElement scroll = driver.findElement(By.xpath("//div[contains(text(),'Language')]"));
 		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
-		  
 		  for(int i = 0 ; i < Languages.size(); i++) {
-			  
 			  System.out.println(Languages.get(i).getText());
 			  
 			  try {
@@ -266,17 +226,13 @@ public class homePage extends basePage{
 		      }catch(Exception e) {
 		    	  
 			          logger.error("Something went wrong"+e);
-			          
 		      }	
 			  
 		  }
 		  
 		  System.out.println();
-		  
 		  Thread.sleep(2000);
-		  
 		  base.takeScreenshot("Languages");
-		  
 	  }
 	  
     //Take the count of the levels and display the levels  
@@ -284,15 +240,11 @@ public class homePage extends basePage{
 	  public void levelCount() throws IOException {
 		  
 		  System.out.println("-------------------------------------------------------");
-		  
-		  WebElement scroll = driver.findElement(By.xpath("//label[contains(text(),'Level')]"));
-		  
+		  WebElement scroll = driver.findElement(By.xpath("//div[contains(text(),'Level')]"));
 		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
-		  
 		  System.out.println("Total number of levels : " + Levels.size());
-		  
-		  for(int i = 0 ; i < Levels.size();i++) {
-			  
+		  for(int i = 0 ; i < Levels.size();i++)
+		  {
 			  System.out.println(Levels.get(i).getText());
 			  
 			  try {
@@ -301,16 +253,12 @@ public class homePage extends basePage{
 					
 		      }catch(Exception e) {
 		    	  
-			          logger.error("Something went wrong"+e);
-			          
+			         logger.error("Something went wrong"+e);     
 		      }	
-			  
 		  }
 		  
 		  System.out.println();
-		  
 		  base.takeScreenshot("Levels");
-		  
 		  System.out.println("-------------------------------------------------------");
 	  }
 	  
@@ -318,18 +266,12 @@ public class homePage extends basePage{
 	  
 	  public void clickEnterprise() throws InterruptedException, IOException {
 		  
-		  WebElement scroll = driver.findElement(By.xpath("(//p[contains(text(),'Community')])"));
-		  
-		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);
-		  
-		  Thread.sleep(2000);
-		  
-		  js.executeScript("arguments[0].style.border = '3px solid red' ",Enterprise);
-		  
-		  base.takeScreenshot("For enterprise");
-		  
+		  WebElement scroll = driver.findElement(By.xpath("(//p[contains(text(),'Community')])"));	  
+		  js.executeScript("arguments[0].scrollIntoView(true);",scroll);		  
+		  Thread.sleep(2000);		  
+		  js.executeScript("arguments[0].style.border = '3px solid red' ",Enterprise);	  
+		  base.takeScreenshot("For enterprise");		  
 		  js.executeScript("arguments[0].click();", Enterprise);  
 		  
 	  }
-
 }
